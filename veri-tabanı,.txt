@@ -1,0 +1,124 @@
+-- phpMyAdmin SQL Dump
+-- version 2.9.0.3
+-- http://www.phpmyadmin.net
+-- 
+-- Anamakine: localhost
+-- Üretim Zamaný: 01 Haziran 2012 saat 10:24:30
+-- Sunucu sürümü: 5.0.27
+-- PHP Sürümü: 5.2.0
+-- 
+-- Veritabaný: `yemek`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Tablo yapýsý: `firma`
+-- 
+
+CREATE TABLE `firma` (
+  `firma_id` int(11) NOT NULL auto_increment,
+  `firma_adi` varchar(50) default NULL,
+  `firma_adres` varchar(200) character set utf8 collate utf8_turkish_ci default NULL,
+  `firma_tel` varchar(15) default NULL,
+  `firma_kadi` varchar(50) default NULL,
+  `firma_sifre` varchar(10) default NULL,
+  PRIMARY KEY  (`firma_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin5 AUTO_INCREMENT=4 ;
+
+-- 
+-- Tablo döküm verisi `firma`
+-- 
+
+INSERT INTO `firma` (`firma_id`, `firma_adi`, `firma_adres`, `firma_tel`, `firma_kadi`, `firma_sifre`) VALUES 
+(1, 'can can', 'ilgin', '03325648755', 'can_can', '123'),
+(2, 'kervansaray', '&#305;lg&#305;n', '03325932144', 'kervan', '12'),
+(3, 'Lale', '&#305;lg&#305;n/konya', '03324521352', 'lale', '12345');
+
+-- --------------------------------------------------------
+
+-- 
+-- Tablo yapýsý: `kategori`
+-- 
+
+CREATE TABLE `kategori` (
+  `k_id` int(11) NOT NULL auto_increment,
+  `k_adi` varchar(50) character set utf8 collate utf8_turkish_ci default NULL,
+  `firma_id` int(11) default NULL,
+  PRIMARY KEY  (`k_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin5 AUTO_INCREMENT=15 ;
+
+-- 
+-- Tablo döküm verisi `kategori`
+-- 
+
+INSERT INTO `kategori` (`k_id`, `k_adi`, `firma_id`) VALUES 
+(3, 'içecek', 1),
+(6, 'tatli', 1),
+(10, 'Pide', 2),
+(11, 'icecek', 2),
+(12, 'corba', 2),
+(13, 'Tatli', 2),
+(14, 'corbalar', 1);
+
+-- --------------------------------------------------------
+
+-- 
+-- Tablo yapýsý: `menu`
+-- 
+
+CREATE TABLE `menu` (
+  `menu_id` int(11) NOT NULL auto_increment,
+  `menu_isim` varchar(50) default NULL,
+  `urun1` varchar(50) default NULL,
+  `urun2` varchar(50) default NULL,
+  `urun3` varchar(50) default NULL,
+  `urun4` varchar(50) default NULL,
+  `urun5` varchar(50) default NULL,
+  `menu_resim` varchar(100) default NULL,
+  `fiyat` varchar(50) default NULL,
+  `firma_id` int(11) default NULL,
+  PRIMARY KEY  (`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin5 AUTO_INCREMENT=11 ;
+
+-- 
+-- Tablo döküm verisi `menu`
+-- 
+
+INSERT INTO `menu` (`menu_id`, `menu_isim`, `urun1`, `urun2`, `urun3`, `urun4`, `urun5`, `menu_resim`, `fiyat`, `firma_id`) VALUES 
+(1, 'Süper Menü', 'Etli ekmek', 'ayran', '', '', '', 'ayran_eekmek.jpg', '7.50', 2),
+(9, 'normal menü', 'Mercimek çorba', 'Ayran', '', NULL, NULL, 'ayran_eekmek.jpg', '5.000', 1),
+(10, 'Ekstra ucuz Menü', 'ezogelin çorba', 'sutlac', 'Ayran', NULL, NULL, 'ayran_eekmek.jpg', '5.000', 1);
+
+-- --------------------------------------------------------
+
+-- 
+-- Tablo yapýsý: `urun`
+-- 
+
+CREATE TABLE `urun` (
+  `urun_id` int(11) NOT NULL auto_increment,
+  `urun_adi` varchar(50) character set utf8 collate utf8_turkish_ci default NULL,
+  `urun_fiyat` varchar(50) default NULL,
+  `urun_resim` varchar(100) character set utf8 collate utf8_turkish_ci default NULL,
+  `k_id` int(11) default NULL,
+  `firma_id` int(11) default NULL,
+  PRIMARY KEY  (`urun_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin5 AUTO_INCREMENT=41 ;
+
+-- 
+-- Tablo döküm verisi `urun`
+-- 
+
+INSERT INTO `urun` (`urun_id`, `urun_adi`, `urun_fiyat`, `urun_resim`, `k_id`, `firma_id`) VALUES 
+(11, 'sutlac', '2,50', 'sutlac.jpg', 6, 1),
+(13, 'Ayran', '1.000', 'ayran.jpg', 3, 1),
+(31, 'Etli ekmek', '4.50', 'etliekmek.jpg', 10, 2),
+(32, 'Yumurtal&#305; pide', '4.50', 'yumurtalipide.jpg', 10, 2),
+(33, 'Kola', '1.5', 'cocacola.jpg', 11, 2),
+(35, 'mercimek corba', '2.50', 'mercimek.jpg', 12, 2),
+(36, 'ezogelin corba', '2.50', 'ezogelin.jpg', 12, 2),
+(37, 'ayran', '2.000', 'ayran.jpg', 11, 2),
+(38, 'kar&#305;s&#305;k', '10', 'yumurtalipide.jpg', 10, 2),
+(39, 'Sutlac', '2.50', 'sutlac.jpg', 13, 2),
+(40, 'mercimek corba', '3.000', 'mercimek.jpg', 14, 1);
